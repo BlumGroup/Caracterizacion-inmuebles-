@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light">
+<title>Panel de prospectos · BLÜM GROUP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2C2C2C; --muted:#6F6A63; --line:#E4DFD6; --bg:#F7F5F1; --card:#FFFFFF; --soft:#FCFBF9;
+  --sage:#6B8E6B; --sage-d:#57765A; --sage-l:#EDF2EC;
+  --sand:#B08968; --sand-l:#F6EFE7;
+  --go:#4F8A5B; --go-l:#E8F2EA; --warn:#B7802F; --warn-l:#FBF1E1; --stop:#B4533C; --stop-l:#F8E7E2;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh}
+[hidden]{display:none!important}
+button,select,input{font:inherit;color:inherit}
+a{color:var(--sage-d)}
+
+/* Header */
+.top{background:var(--ink);color:#fff;position:sticky;top:0;z-index:20}
+.top-in{max-width:1400px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:16px}
+.brand{font-weight:700;letter-spacing:.14em;font-size:14px;white-space:nowrap}
+.brand span{color:var(--sand);font-weight:500;margin-left:6px}
+.top-title{color:#CFCAC2;font-size:13px;border-left:1px solid #4a4a4a;padding-left:16px;white-space:nowrap}
+.top-r{margin-left:auto;display:flex;align-items:center;gap:12px}
+.upd{font-size:12px;color:#CFCAC2;white-space:nowrap}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s}
+.btn:hover{border-color:#CFC8BC}
+.btn-dark{background:#3a3a3a;border-color:#4a4a4a;color:#fff}
+.btn-dark:hover{background:#474747;border-color:#5a5a5a}
+.btn-p{background:var(--sage);border-color:var(--sage);color:#fff}
+.btn-p:hover{background:var(--sage-d)}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.wrap{max-width:1400px;margin:0 auto;padding:20px}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi small{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.kpi b{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+/* Toolbar */
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.tools input,.tools select{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;outline:none;min-width:0}
+.tools input:focus,.tools select:focus{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-l)}
+.tools .search{flex:1 1 240px}
+.tools .prop{flex:2 1 320px;font-weight:600}
+.count{font-size:12px;color:var(--muted);margin-left:auto}
+
+/* Layout */
+.grid{display:grid;grid-template-columns:330px 1fr;gap:16px;align-items:start}
+.list{display:flex;flex-direction:column;gap:8px;position:sticky;top:78px;max-height:calc(100vh - 96px);overflow:auto;padding-right:4px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;width:100%;transition:border-color .15s,box-shadow .15s}
+.item:hover{border-color:#CFC8BC}
+.item.on{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-l)}
+.item-h{display:flex;align-items:center;gap:8px;font-weight:600}
+.item-h .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item p{font-size:12px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-f{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.sem{width:10px;height:10px;border-radius:50%;flex:none}
+.sem.go{background:var(--go)} .sem.cond{background:var(--warn)} .sem.nogo{background:var(--stop)}
+.pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.alta{background:var(--stop-l);border-color:#EBC6BC;color:var(--stop)}
+.pill.media{background:var(--warn-l);border-color:#EDD5AE;color:#8F6220}
+.pill.baja{background:var(--sage-l);border-color:#CFDCCD;color:var(--sage-d)}
+.pill.lead{background:var(--sand-l);border-color:#E7D5C3;color:#7A5B40}
+
+/* Detail */
+.detail{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px}
+.card h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card h3 .n{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500}
+.head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.head h1{font-size:22px;line-height:1.25;letter-spacing:-.01em}
+.head .sub{color:var(--muted);margin-top:4px}
+.head-r{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.lnk{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--soft);text-decoration:none;color:var(--ink);font-size:13px;font-weight:500}
+.lnk:hover{border-color:var(--sage)}
+.lnk.off{color:var(--muted);opacity:.6;pointer-events:none}
+
+.verdict{display:flex;gap:14px;align-items:flex-start;border-radius:14px;padding:16px 18px;margin-bottom:14px;border:1px solid}
+.verdict.go{background:var(--go-l);border-color:#C8DFCC}
+.verdict.cond{background:var(--warn-l);border-color:#EDD5AE}
+.verdict.nogo{background:var(--stop-l);border-color:#EBC6BC}
+.verdict .ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none;font-weight:700}
+.verdict.go .ic{background:var(--go)} .verdict.cond .ic{background:var(--warn)} .verdict.nogo .ic{background:var(--stop)}
+.verdict b{font-size:16px;display:block}
+.verdict p{color:var(--ink);opacity:.85;margin-top:2px}
+.verdict .next{margin-top:8px;font-weight:600;font-size:13px}
+
+.scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.score{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.score small{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.score b{font-size:24px;font-variant-numeric:tabular-nums;display:block;margin:2px 0 8px}
+.score b em{font-style:normal;font-size:12px;font-weight:500;color:var(--muted);margin-left:6px}
+.meter{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:6px}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.fact{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.fact small{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.fact b{font-size:16px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;hyphens:auto}
+.fact span{font-size:12px;color:var(--muted)}
+
+.two{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.actions{list-style:none;display:flex;flex-direction:column;gap:8px}
+.actions li{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.actions li .cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;align-self:center}
+.actions li p{grid-column:1/-1}
+.actions .done{color:var(--muted);font-style:italic;background:none;border-style:dashed}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:6px 10px;border-radius:999px;background:var(--sage-l);color:var(--sage-d);font-weight:500;font-size:13px}
+.chip.neg{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+
+.pricing .rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.brief{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;white-space:pre-wrap;font-size:13px;line-height:1.6}
+.brief-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+
+details.sec{border-top:1px solid var(--line)}
+details.sec:first-of-type{border-top:0}
+details.sec summary{cursor:pointer;padding:12px 0;font-weight:600;list-style:none;display:flex;align-items:center;gap:8px}
+details.sec summary::-webkit-details-marker{display:none}
+details.sec summary:before{content:"›";display:inline-block;transition:transform .15s;color:var(--muted);font-size:18px;line-height:1}
+details.sec[open] summary:before{transform:rotate(90deg)}
+dl.kv{display:grid;grid-template-columns:minmax(150px,35%) 1fr;gap:6px 16px;padding:0 0 14px 18px}
+dl.kv dt{color:var(--muted)}
+dl.kv dd{word-break:break-word}
+
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+
+/* Key modal */
+.modal{position:fixed;inset:0;background:rgba(44,44,44,.55);display:grid;place-items:center;z-index:50;padding:16px}
+.modal-c{background:#fff;border-radius:18px;padding:26px;max-width:420px;width:100%}
+.modal-c h2{font-size:20px;margin-bottom:6px}
+.modal-c p{color:var(--muted);margin-bottom:16px}
+.modal-c input{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none;margin-bottom:10px}
+.modal-c input:focus{border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-l)}
+.modal-c .err{color:var(--stop);font-size:13px;min-height:18px;margin-bottom:8px}
+.modal-c .row{display:flex;gap:8px;justify-content:flex-end}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;z-index:60}
+
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.scores{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:860px){
+  .grid{grid-template-columns:1fr}
+  .list{display:none}
+  .top-title,.upd{display:none}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:16px}
+  dl.kv{grid-template-columns:1fr;padding-left:0}
+  dl.kv dd{margin-bottom:6px}
+}
+@media print{.top,.tools,.list,.kpis,.btn{display:none!important}.grid{grid-template-columns:1fr}.card,.score{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">BLÜM<span>GROUP</span></div>
+    <div class="top-title">Panel de prospectos · Rentas cortas</div>
+    <div class="top-r">
+      <span class="upd" id="upd">Sin cargar</span>
+      <button class="btn btn-dark" id="refresh" type="button" title="Actualizar desde Google Sheets">
+        <svg id="refIc" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+        Actualizar
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="kpis" id="kpis"></section>
+
+  <section class="tools">
+    <select class="prop" id="propSel" aria-label="Seleccionar propiedad"></select>
+    <input class="search" id="q" type="search" placeholder="Buscar por propietario, barrio, conjunto o código">
+    <select id="fCiudad" aria-label="Ciudad"><option value="">Todas las ciudades</option></select>
+    <select id="fViab" aria-label="Viabilidad"><option value="">Toda viabilidad</option><option value="go">Viables</option><option value="cond">Con condiciones</option><option value="nogo">Bloqueados</option></select>
+    <select id="fLead" aria-label="Estado"><option value="">Todos los estados</option></select>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section class="grid">
+    <aside class="list" id="list" aria-label="Propiedades"></aside>
+    <article class="detail" id="detail"></article>
+  </section>
+</main>
+
+<div class="modal" id="keyModal" hidden>
+  <form class="modal-c" id="keyForm">
+    <h2>Clave del panel</h2>
+    <p>Escribe la clave <b>DASHBOARD_KEY</b> que está en tu Apps Script. Se guarda solo en este navegador.</p>
+    <input id="keyIn" type="password" autocomplete="off" placeholder="blum-…" required>
+    <div class="err" id="keyErr"></div>
+    <div class="row"><button class="btn btn-p" type="submit">Entrar</button></div>
+  </form>
+</div>
+
+<script>
+/* ============ CONFIGURACIÓN ============ */
+const CONFIG = {
+  ENDPOINT: 'https://script.google.com/macros/s/AKfycbzPX8T-yW8T9zZ2E5FlwKmIJF9KqSwyIjUT_OFtWK6_OAZuvQNltwxbzjR2Jzu55WFiEw/exec',
+  REFRESH_MIN: 5,                 // Actualización automática (minutos)
+  JUEGOS_SABANAS_POR_CAMA: 3,     // Estándar sugerido: uno en uso, uno en lavandería, uno de reserva
+  JUEGOS_TOALLAS_POR_HUESPED: 3,
+  WIFI_MIN_MBPS: 50,              // Mínimo recomendado para trabajo remoto
+  CALIF_MIN: 4.7,                 // Por debajo afecta la visibilidad en plataformas
+  CIUDADES_CALIDAS: ['Barranquilla','Puerto Colombia','Soledad','Tubará','Juan de Acosta','Santa Marta','Cartagena']
+};
+/* ======================================= */
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const KEY_STORE = 'blum_panel_key';
+const DEMO = new URLSearchParams(location.search).has('demo');
+let ROWS = [], SEL = null, LOADING = false, LAST = null;
+
+const n = v => { const x = Number(v); return isFinite(x) ? x : 0; };
+const arr = v => Array.isArray(v) ? v : (v ? String(v).split(',').map(s => s.trim()).filter(Boolean) : []);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const money = v => v === '' || v == null || !isFinite(Number(v)) ? '—' : '$ ' + Math.round(Number(v)).toLocaleString('es-CO');
+const safeUrl = u => /^https?:\/\//i.test(String(u || '').trim()) ? String(u).trim() : '';
+const clamp = v => Math.max(0, Math.min(100, Math.round(v)));
+const getKey = () => { try { return localStorage.getItem(KEY_STORE) || ''; } catch (e) { return window.__k || ''; } };
+const setKey = k => { try { localStorage.setItem(KEY_STORE, k); } catch (e) { window.__k = k; } };
+
+const BEDS = { cama_king: ['King', 2], cama_queen: ['Queen', 2], cama_doble: ['Doble', 2], cama_sencilla: ['Sencilla', 1], camarote: ['Camarote', 2], sofa_cama: ['Sofá cama', 2], colchon_extra: ['Colchón extra', 1] };
+const ESENCIALES = ['Nevera', 'Estufa', 'Cocina equipada', 'Smart TV', 'Plancha', 'Secador de pelo', 'Lavadora'];
+const OCC_MID = { 'Menos de 30%': .2, '30% a 50%': .4, '50% a 70%': .6, 'Más de 70%': .78 };
+
+/* ================= ANÁLISIS ================= */
+function analyze(d) {
+  const A = [], F = [];
+  const add = (prio, cat, txt) => A.push({ prio, cat, txt });
+  const eq = arr(d.equipamiento), am = arr(d.amenidades), cerca = arr(d.cercanos), vista = arr(d.vista), uso = arr(d.uso_actual);
+  const tipo = d.tipo_inmueble === 'Otro' ? (d.tipo_inmueble_otro || 'Otro') : (d.tipo_inmueble || 'Inmueble');
+  const ciudad = d.ciudad === 'Otro' ? (d.ciudad_otro || 'Otro') : (d.ciudad || '');
+  const habAA = n(d.hab_aa), habSin = n(d.hab_sin_aa), hab = habAA + habSin;
+  const camas = Object.keys(BEDS).filter(k => k !== 'colchon_extra').reduce((s, k) => s + n(d[k]), 0);
+  const plazas = Object.entries(BEDS).reduce((s, [k, [, p]]) => s + n(d[k]) * p, 0);
+  const hues = n(d.huespedes_max), banos = n(d.banos) + n(d.medios_banos) * 0.5;
+  const calido = CONFIG.CIUDADES_CALIDAS.includes(d.ciudad);
+  const casaLike = ['Casa', 'Casa de playa', 'Cabaña', 'Finca'].includes(d.tipo_inmueble);
+  const enPlat = uso.includes('Se renta por plataformas') || uso.includes('Renta directa por días');
+
+  /* ---- Legal ---- */
+  let legal = 100, blocker = null;
+  if (d.ph === 'Sí') {
+    if (d.reglamento_permite === 'No') { blocker = 'El reglamento de propiedad horizontal no permite rentas cortas.'; legal = 0;
+      add('Alta', 'Legal', 'Pedir copia del reglamento y revisar la cláusula de destinación. Si prohíbe el uso turístico, no es operable hasta que la asamblea lo apruebe.'); }
+    if (d.estadias_cortas === 'No') { blocker = blocker || 'El edificio no acepta estadías cortas.'; legal = 0;
+      add('Alta', 'Legal', 'Confirmar con la administración si la restricción es formal (reglamento) o solo una práctica. Sin autorización no se puede operar.'); }
+    if (!blocker) {
+      if (d.reglamento_permite === 'No sé') { legal -= 25; add('Alta', 'Legal', 'Solicitar el reglamento de PH y confirmar que autoriza el uso turístico antes de invertir en adecuaciones.'); }
+      if (d.estadias_cortas === 'No sé') { legal -= 15; add('Media', 'Legal', 'Verificar con portería o administración si otros apartamentos ya operan por días.'); }
+      if (d.reglamento_permite === 'Sí' && d.estadias_cortas === 'Sí') F.push('PH autoriza rentas cortas');
+    }
+    if (!d.admin_contacto) add('Baja', 'Datos', 'Pedir el contacto de la administración para coordinar ingreso de huéspedes y registro.');
+  }
+  if (d.rnt === 'Sí') F.push('RNT vigente');
+  else if (d.rnt === 'En trámite') { legal -= 10; add('Media', 'Legal', 'Hacer seguimiento al trámite del RNT y pedir el número cuando esté listo; se necesita para publicar.'); }
+  else if (d.rnt === 'No') { legal -= 25; add('Alta', 'Legal', 'Tramitar el RNT antes de publicar: es obligatorio para vivienda turística y las plataformas lo solicitan.'); }
+  else if (d.rnt === 'No sé qué es') { legal -= 30; add('Alta', 'Legal', 'Explicar al propietario qué es el RNT y acompañar el trámite (requisito para operar y publicar).'); }
+  legal = blocker ? 0 : clamp(legal);
+
+  /* ---- Alistamiento operativo ---- */
+  let al = 100, dot = 0;  // dot: deducciones de dotación/capacidad, con tope
+  const pend = d.pendientes ? ` Pendientes reportados: "${d.pendientes}".` : '';
+  if (d.estado === 'Requiere remodelación') { al -= 55; add('Alta', 'Mantenimiento', 'Visita técnica y presupuesto de remodelación antes de proyectar: la inversión inicial cambia el retorno.' + pend); }
+  else if (d.estado === 'Requiere mantenimiento') { al -= 30; add('Alta', 'Mantenimiento', 'Cotizar los arreglos e incluirlos en la inversión inicial de la proyección.' + pend); }
+  else if (d.estado === 'Bueno') { al -= 10; if (d.pendientes) add('Media', 'Mantenimiento', 'Resolver detalles antes de la sesión de fotos.' + pend); }
+  else if (d.estado === 'Excelente') F.push('Listo para recibir huéspedes');
+
+  if (d.amoblado === 'Parcialmente') { al -= 15; add('Alta', 'Dotación', 'Presupuestar el amoblado faltante.' + (d.obs_amoblado ? ` Nota: "${d.obs_amoblado}".` : '')); }
+  else if (d.amoblado === 'Sin amoblar') { al -= 40; add('Alta', 'Dotación', 'Presupuesto completo de amoblado y decoración: es la inversión inicial principal de la proyección.'); }
+
+  const recS = Math.max(camas, 1) * CONFIG.JUEGOS_SABANAS_POR_CAMA, recT = Math.max(hues, 1) * CONFIG.JUEGOS_TOALLAS_POR_HUESPED;
+  if (d.lenceria === 'No tiene') { dot += 20; add('Alta', 'Dotación', `Comprar lencería: ${recS} juegos de sábanas y ${recT} de toallas (estándar de ${CONFIG.JUEGOS_SABANAS_POR_CAMA} por cama y por huésped).`); }
+  else if (d.lenceria) {
+    const s = n(d.juegos_sabanas), t = n(d.juegos_toallas);
+    if (s < recS || t < recT) { dot += 8; add('Media', 'Dotación', `Completar lencería: tiene ${s}/${recS} juegos de sábanas y ${t}/${recT} de toallas recomendados.`); }
+  }
+
+  if (!eq.includes('WiFi')) { dot += 15; add('Alta', 'Dotación', 'Instalar internet: es de los filtros más usados por los huéspedes.'); }
+  else if (d.wifi_mbps && n(d.wifi_mbps) < CONFIG.WIFI_MIN_MBPS) { dot += 5; add('Media', 'Dotación', `Mejorar el plan de internet (${n(d.wifi_mbps)} Mbps; recomendado ≥ ${CONFIG.WIFI_MIN_MBPS} para trabajo remoto).`); }
+  else if (!d.wifi_mbps) add('Baja', 'Datos', 'Confirmar la velocidad del internet (dato que se publica en el anuncio).');
+  else if (n(d.wifi_mbps) >= 100) F.push(`Internet de ${n(d.wifi_mbps)} Mbps`);
+
+  if (calido && habSin > 0) { dot += Math.min(20, 7 * habSin); add(habAA === 0 ? 'Alta' : 'Media', 'Dotación', `Instalar aire acondicionado en ${habSin} habitación(es): en clima cálido define reseñas y tarifa.`); }
+  else if (calido && hab > 0 && habSin === 0) F.push('Todas las habitaciones con A/A');
+
+  if (d.closet_todas === 'No') {
+    const sin = Math.max(hab - n(d.hab_closet), 0); dot += 4;
+    add('Media', 'Dotación', `${sin} habitación(es) sin clóset: considerar clóset modular o perchero con ganchos.` + (d.closet_obs ? ` Nota: "${d.closet_obs}".` : ''));
+  }
+
+  const smart = eq.includes('Cerradura inteligente') || /Cerradura/.test(d.acceso_tipo || '');
+  if (smart) F.push('Check-in autónomo');
+  else if (['Entrega presencial', 'Aún no está definido', 'Caja de llaves'].includes(d.acceso_tipo)) { dot += 5; add('Media', 'Dotación', 'Instalar cerradura inteligente: permite check-in autónomo, llegadas tarde y reduce costos operativos.'); }
+
+  const faltan = ESENCIALES.filter(x => !eq.includes(x));
+  if (faltan.length) { dot += Math.min(15, faltan.length * 3); add(faltan.length >= 3 ? 'Alta' : 'Media', 'Dotación', 'Completar dotación básica: ' + faltan.join(', ') + '.'); }
+  if (!calido && !eq.includes('Agua caliente')) add('Media', 'Dotación', 'Instalar agua caliente (esperada fuera de zonas cálidas).');
+
+  if (plazas > 0 && hues > plazas) { dot += 8; add('Alta', 'Capacidad', `La capacidad declarada (${hues}) supera las plazas en cama (${plazas}). Ajustar huéspedes máximos o agregar camas.`); }
+  else if (plazas >= hues + 2 && hues > 0) add('Baja', 'Comercial', `Las camas permiten ${plazas} personas y se declararon ${hues}: evaluar subir la capacidad para captar grupos.`);
+  if (banos > 0 && hues / banos > 4) add('Media', 'Capacidad', `${(hues / banos).toFixed(1)} huéspedes por baño: alto para grupos; considerar limitar la capacidad.`);
+
+  if (d.antiguedad === 'Más de 20 años') add('Media', 'Mantenimiento', 'Inspección eléctrica e hidráulica antes de operar (más de 20 años).');
+  else if (d.antiguedad === '10 a 20 años') add('Baja', 'Mantenimiento', 'Revisar estado de baños, cocina e instalaciones: suelen requerir actualización estética.');
+  else if (/Nuevo|1 a 5/.test(d.antiguedad || '')) F.push('Inmueble reciente');
+  al = clamp(al - Math.min(dot, 35));
+
+  /* ---- Comercial ---- */
+  if (n(d.parqueaderos) === 0 && casaLike) add('Media', 'Comercial', 'Sin parqueadero: confirmar alternativa cercana; el público de casas y fincas suele llegar en carro.');
+  else if (n(d.parqueaderos) > 0) F.push(`${n(d.parqueaderos)} parqueadero(s)`);
+  if (/difícil/.test(d.via_acceso || '')) add('Media', 'Comercial', 'Acceso difícil: indicarlo en el anuncio, sugerir 4x4 en lluvia y enviar ruta antes de la llegada.');
+  if (d.mascotas === 'No') add('Baja', 'Comercial', 'Evaluar aceptar mascotas con tarifa adicional: amplía la demanda.');
+  else if (d.mascotas) F.push('Pet friendly');
+  if (d.eventos === 'Sí' && d.ph === 'Sí') add('Media', 'Legal', 'Se declaran eventos permitidos en un conjunto: validar con el reglamento de convivencia para evitar quejas.');
+
+  let base = null;
+  if (enPlat) {
+    if (!safeUrl(d.link_anuncio)) add('Media', 'Datos', 'Pedir el enlace del anuncio actual para revisar fotos, reseñas y calendario.');
+    const c = n(d.calificacion), r = n(d.num_resenas);
+    if (c && c < CONFIG.CALIF_MIN) add('Alta', 'Comercial', `Calificación ${c}: por debajo de ${CONFIG.CALIF_MIN} afecta la visibilidad. Revisar reseñas negativas y corregir causas antes de subir la tarifa.`);
+    else if (c >= 4.8) F.push(`Calificación ${c}`);
+    if (d.num_resenas !== '' && d.num_resenas != null && r < 10) add('Media', 'Comercial', 'Pocas reseñas: estrategia de lanzamiento con tarifa de entrada para acumularlas.');
+    if (['Menos de 30%', '30% a 50%'].includes(d.ocupacion)) add('Alta', 'Comercial', `Ocupación ${d.ocupacion.toLowerCase()}: revisar pricing, fotos y posicionamiento del anuncio.`);
+    const t = n(d.tarifa_noche), m = OCC_MID[d.ocupacion], ing = n(d.ingreso_actual);
+    if (t && m) {
+      const est = t * 30 * m; base = { est, t, m };
+      if (ing && Math.abs(ing - est) / est > 0.4) add('Baja', 'Datos', `El ingreso declarado (${money(ing)}) no cuadra con tarifa × ocupación (≈ ${money(est)}). Validar con el historial de la plataforma.`);
+    }
+  }
+  if (uso.includes('Arriendo tradicional')) {
+    if (n(d.canon_arriendo)) add('Media', 'Comercial', `Punto de comparación: la proyección neta debe superar el canon actual de ${money(d.canon_arriendo)}/mes para justificar el cambio.`);
+    else add('Media', 'Datos', 'Pedir el canon del arriendo actual: es el punto de comparación de la proyección.');
+  }
+  if (uso.includes('Uso propio o familiar')) add('Media', 'Comercial', 'Acordar con el propietario las fechas de uso propio para descontarlas de la proyección.');
+
+  if (!safeUrl(d.maps_link)) add('Media', 'Datos', 'Pedir la ubicación en Google Maps para identificar comparables cercanos.');
+  if (!d.barrio) add('Media', 'Datos', 'Confirmar barrio o sector: es la base del estudio de mercado.');
+  if (!d.correo) add('Baja', 'Datos', 'Pedir un correo para enviar la propuesta y el contrato.');
+
+  /* ---- Atractivo ---- */
+  let at = 35;
+  if (vista.includes('Mar')) { at += 15; F.push('Vista al mar'); }
+  else if (vista.some(v => /Río|Naturaleza/.test(v))) { at += 6; F.push('Vista a ' + vista.filter(v => /Río|Naturaleza/.test(v)).join(' y ').toLowerCase()); }
+  const dp = { 'Frente al mar': 15, 'Menos de 500 m': 10, '500 m a 2 km': 5 }[d.distancia_playa];
+  if (dp) { at += dp; F.push(d.distancia_playa === 'Frente al mar' ? 'Frente al mar' : `Playa a ${d.distancia_playa.toLowerCase()}`); }
+  const AMW = { 'Piscina privada': 12, 'Piscina compartida': 6, 'Jacuzzi': 6, 'Acceso directo a playa': 8, 'Terraza o balcón': 4, 'BBQ': 3, 'Gimnasio': 3, 'Sauna o turco': 3, 'Kiosko o hamacas': 3, 'Zona verde o jardín': 2, 'Coworking': 2 };
+  am.forEach(a => { if (AMW[a]) { at += AMW[a]; F.push(a); } });
+  if (['5', '6'].includes(String(d.estrato))) at += 8; else if (String(d.estrato) === '4') at += 4;
+  at += Math.min(8, cerca.length * 1.5);
+  if (cerca.length >= 4) F.push(`${cerca.length} servicios a 5 min caminando`);
+  at = clamp(at);
+
+  /* ---- Completitud ---- */
+  const need = ['maps_link', 'barrio', 'area_construida', 'estrato', 'distancia_playa', 'antiguedad', 'correo'];
+  if (eq.includes('WiFi')) need.push('wifi_mbps');
+  if (enPlat) need.push('link_anuncio', 'tarifa_noche', 'ocupacion', 'calificacion');
+  if (vista.length === 0) need.push('__vista');
+  if (cerca.length === 0) need.push('__cerca');
+  const ok = need.filter(k => !k.startsWith('__') && d[k] !== '' && d[k] != null && !(Array.isArray(d[k]) && !d[k].length)).length;
+  const datos = clamp(ok / need.length * 100);
+
+  /* ---- Veredicto ---- */
+  let viab, reason, next;
+  const altas = A.filter(a => a.prio === 'Alta').length;
+  if (blocker) { viab = 'nogo'; reason = blocker; next = 'Siguiente paso: validar el reglamento con la administración antes de invertir tiempo en pricing.'; }
+  else if (legal < 70 || al < 60) {
+    viab = 'cond';
+    reason = [legal < 70 ? 'temas legales por confirmar' : '', al < 60 ? 'requiere inversión para operar' : ''].filter(Boolean).join(' y ');
+    reason = reason.charAt(0).toUpperCase() + reason.slice(1) + '.';
+    next = `Siguiente paso: resolver ${altas} accionable(s) de prioridad alta e incluir la inversión inicial en la proyección.`;
+  } else { viab = 'go'; reason = 'Sin bloqueos legales y con buen nivel de alistamiento.'; next = 'Siguiente paso: buscar comparables y pasar a pricing y proyección.'; }
+
+  const seg = at >= 70 ? 'Premium' : at >= 50 ? 'Medio' : 'Económico';
+  const ord = { Alta: 0, Media: 1, Baja: 2 };
+  A.sort((a, b) => ord[a.prio] - ord[b.prio]);
+
+  /* ---- Brief de pricing ---- */
+  const topAm = am.filter(a => AMW[a] >= 4);
+  const camasTxt = Object.entries(BEDS).filter(([k]) => n(d[k])).map(([k, [l]]) => `${n(d[k])} ${l.toLowerCase()}`).join(', ');
+  const brief = [
+    `${tipo} en ${[d.barrio, ciudad].filter(Boolean).join(', ')}${d.conjunto ? ` (${d.conjunto})` : ''}`,
+    `${hab} hab (${habAA} con A/A) · ${n(d.banos)} baño(s)${n(d.medios_banos) ? ` + ${n(d.medios_banos)} medio(s)` : ''} · hasta ${hues} huéspedes · ${camasTxt || 'camas sin detalle'}`,
+    `${d.area_construida ? n(d.area_construida) + ' m²' : 'Área sin dato'}${d.area_lote ? ` · lote ${n(d.area_lote).toLocaleString('es-CO')} m²` : ''} · estrato ${d.estrato || '—'} · ${d.antiguedad || 'antigüedad sin dato'} · estado ${String(d.estado || '—').toLowerCase()}`,
+    `Diferenciales: ${F.length ? F.slice(0, 8).join(', ') : 'sin diferenciales destacados'}`,
+    enPlat ? `Hoy en plataformas: tarifa ${money(d.tarifa_noche)}${d.tarifa_alta ? ` (alta ${money(d.tarifa_alta)})` : ''} · ocupación ${d.ocupacion || '—'} · calificación ${d.calificacion || '—'} (${d.num_resenas || 0} reseñas)` : `Uso actual: ${uso.join(', ') || '—'}${n(d.canon_arriendo) ? ` · canon ${money(d.canon_arriendo)}` : ''}`,
+    `Comparables a buscar: ${tipo.toLowerCase()} de ${hab} hab para ${hues} huéspedes en ${d.barrio || ciudad}${dp ? `, ${d.distancia_playa.toLowerCase()} de la playa` : ''}${topAm.length ? `, con ${topAm.join(', ').toLowerCase()}` : ''}. Posicionamiento estimado: ${seg.toLowerCase()}.`
+  ].join('\n');
+
+  return { tipo, ciudad, hab, habAA, habSin, camas, plazas, hues, banos, legal, al, at, datos, viab, reason, next, acciones: A, fortalezas: [...new Set(F)], seg, brief, base, enPlat, altas };
+}
+
+/* ================= DATOS ================= */
+async function fetchRows() {
+  if (DEMO) { await new Promise(r => setTimeout(r, 300)); return DEMO_ROWS; }
+  const key = getKey();
+  if (!key) { askKey(); throw new Error('nokey'); }
+  const r = await fetch(`${CONFIG.ENDPOINT}?action=list&key=${encodeURIComponent(key)}&t=${Date.now()}`);
+  const j = await r.json();
+  if (!j.ok) { if (j.error === 'unauthorized') { askKey('Clave incorrecta. Revísala en el Apps Script.'); throw new Error('nokey'); } throw new Error(j.error || 'Error'); }
+  return j.rows || [];
+}
+async function refresh(silent) {
+  if (LOADING) return; LOADING = true; $('#refIc').classList.add('spin');
+  try {
+    const rows = await fetchRows();
+    ROWS = rows.map(d => ({ d, a: analyze(d) })).sort((x, y) => String(y.d.fecha || '').localeCompare(String(x.d.fecha || '')));
+    LAST = new Date(); fillFilters(); render();
+    if (!silent) toast(`${ROWS.length} registro(s) cargados`);
+  } catch (e) {
+    if (e.message !== 'nokey') { console.error(e); toast('No se pudo leer la hoja. Revisa la conexión o la implementación del Apps Script.'); if (!ROWS.length) $('#detail').innerHTML = emptyHtml('No se pudo cargar la información', 'Verifica que el Apps Script tenga la versión con el panel publicada y vuelve a intentar.'); }
+  } finally { LOADING = false; $('#refIc').classList.remove('spin'); updStamp(); }
+}
+function updStamp() {
+  if (!LAST) return;
+  const m = Math.round((Date.now() - LAST) / 60000);
+  $('#upd').textContent = (DEMO ? 'Modo demo · ' : '') + (m < 1 ? 'Actualizado hace un momento' : `Actualizado hace ${m} min`);
+}
+
+/* ================= FILTROS ================= */
+function fillFilters() {
+  const keep = (sel, vals, first) => { const cur = sel.value; sel.innerHTML = `<option value="">${first}</option>` + vals.map(v => `<option${v === cur ? ' selected' : ''}>${esc(v)}</option>`).join(''); };
+  keep($('#fCiudad'), [...new Set(ROWS.map(r => r.a.ciudad).filter(Boolean))].sort(), 'Todas las ciudades');
+  keep($('#fLead'), [...new Set(ROWS.map(r => r.d.estado_lead).filter(Boolean))], 'Todos los estados');
+}
+function filtered() {
+  const q = $('#q').value.trim().toLowerCase(), c = $('#fCiudad').value, v = $('#fViab').value, l = $('#fLead').value;
+  return ROWS.filter(({ d, a }) =>
+    (!c || a.ciudad === c) && (!v || a.viab === v) && (!l || d.estado_lead === l) &&
+    (!q || [d.nombre, d.barrio, d.conjunto, d.id, a.tipo, a.ciudad, d.direccion].join(' ').toLowerCase().includes(q)));
+}
+
+/* ================= RENDER ================= */
+const VIAB = { go: ['Viable', '✓'], cond: ['Viable con condiciones', '!'], nogo: ['Bloqueado', '✕'] };
+const title = ({ d, a }) => `${a.tipo}${d.barrio ? ' · ' + d.barrio : ''}`;
+const fdate = s => { const t = new Date(s); return isNaN(t) ? '' : t.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' }); };
+
+function render() {
+  const list = filtered();
+  const k = { total: ROWS.length, go: 0, cond: 0, nogo: 0, nuevo: 0 };
+  ROWS.forEach(r => { k[r.a.viab]++; if ((r.d.estado_lead || 'Nuevo') === 'Nuevo') k.nuevo++; });
+  $('#kpis').innerHTML = [
+    ['Prospectos', k.total, ''], ['Viables', k.go, 'var(--go)'], ['Con condiciones', k.cond, 'var(--warn)'], ['Bloqueados', k.nogo, 'var(--stop)'], ['Sin contactar', k.nuevo, 'var(--sand)']
+  ].map(([l, v, c]) => `<div class="kpi"><small>${c ? `<span class="dot" style="background:${c}"></span>` : ''}${l}</small><b>${v}</b></div>`).join('');
+  $('#count').textContent = `${list.length} de ${ROWS.length}`;
+
+  if (!list.find(r => r.d.id === SEL)) SEL = list[0]?.d.id || null;
+  $('#propSel').innerHTML = list.length
+    ? list.map(r => `<option value="${esc(r.d.id)}"${r.d.id === SEL ? ' selected' : ''}>${r.a.viab === 'go' ? '🟢' : r.a.viab === 'cond' ? '🟡' : '🔴'} ${esc(title(r))} — ${esc(r.d.nombre || 'Sin nombre')} (${esc(r.d.id)})</option>`).join('')
+    : '<option>Sin resultados</option>';
+
+  $('#list').innerHTML = list.map(r => `
+    <button class="item${r.d.id === SEL ? ' on' : ''}" data-id="${esc(r.d.id)}" type="button">
+      <div class="item-h"><span class="sem ${r.a.viab}" title="${VIAB[r.a.viab][0]}"></span><span class="t">${esc(title(r))}</span></div>
+      <p>${esc(r.d.nombre || 'Sin nombre')} · ${esc(r.a.ciudad)}</p>
+      <div class="item-f"><span class="pill lead">${esc(r.d.estado_lead || 'Nuevo')}</span>${r.a.altas ? `<span class="pill alta">${r.a.altas} alta(s)</span>` : ''}<span class="pill">${esc(fdate(r.d.fecha))}</span></div>
+    </button>`).join('') || '';
+
+  const cur = list.find(r => r.d.id === SEL);
+  $('#detail').innerHTML = cur ? detailHtml(cur) : (ROWS.length ? emptyHtml('Sin resultados', 'Ajusta la búsqueda o los filtros.') : emptyHtml('Aún no hay registros', 'Cuando un propietario envíe el formulario aparecerá aquí.'));
+}
+
+function emptyHtml(t, s) { return `<div class="card empty"><b>${esc(t)}</b>${esc(s)}</div>`; }
+function meterColor(v) { return v >= 75 ? 'var(--go)' : v >= 55 ? 'var(--warn)' : 'var(--stop)'; }
+
+function detailHtml({ d, a }) {
+  const wa = String(d.celular || '').replace(/\D/g, '');
+  const ind = String(d.indicativo || '+57').replace(/\D/g, '') || '57';
+  const waUrl = wa ? `https://wa.me/${ind}${wa}?text=${encodeURIComponent(`Hola ${String(d.nombre || '').split(' ')[0]}, te escribe BLÜM GROUP sobre el registro de tu inmueble (${d.id}).`)}` : '';
+  const maps = safeUrl(d.maps_link), anuncio = safeUrl(d.link_anuncio), fotos = safeUrl(d.fotos_link);
+  const lnk = (u, t) => `<a class="lnk${u ? '' : ' off'}" ${u ? `href="${esc(u)}" target="_blank" rel="noopener"` : ''}>${t}</a>`;
+  const sc = (lbl, v, tag) => `<div class="score"><small><span>${lbl}</span></small><b>${v}<em>${tag}</em></b><div class="meter"><i style="width:${v}%;background:${meterColor(v)}"></i></div></div>`;
+  const fact = (l, v, s = '') => `<div class="fact"><small>${l}</small><b>${esc(v)}</b>${s ? ` <span>${esc(s)}</span>` : ''}</div>`;
+  const tagAt = a.at >= 70 ? 'diferenciado' : a.at >= 50 ? 'competitivo' : 'básico';
+
+  return `
+  <div class="card">
+    <div class="head">
+      <div>
+        <h1>${esc(title({ d, a }))}</h1>
+        <div class="sub">${esc([d.direccion, a.ciudad].filter(Boolean).join(' · '))}${d.conjunto ? ' · ' + esc(d.conjunto) : ''}</div>
+        <div class="sub">${esc(d.nombre || 'Sin nombre')}${d.rol ? ' · ' + esc(d.rol) : ''} · <b>${esc(d.id)}</b> · ${esc(fdate(d.fecha))}</div>
+      </div>
+      <div class="head-r"><span class="pill lead" style="font-size:12px;padding:4px 10px">${esc(d.estado_lead || 'Nuevo')}</span></div>
+    </div>
+    <div class="links">${lnk(waUrl, 'WhatsApp')}${lnk(d.correo ? 'mailto:' + d.correo : '', 'Correo')}${lnk(maps, 'Google Maps')}${lnk(anuncio, 'Anuncio actual')}${fotos ? lnk(fotos, 'Fotos') : ''}</div>
+  </div>
+
+  <div class="verdict ${a.viab}">
+    <div class="ic">${VIAB[a.viab][1]}</div>
+    <div><b>${VIAB[a.viab][0]}</b><p>${esc(a.reason)}</p><div class="next">${esc(a.next)}</div></div>
+  </div>
+
+  <div class="scores">
+    ${sc('Viabilidad legal', a.legal, a.legal >= 85 ? 'en regla' : a.legal >= 60 ? 'por confirmar' : 'en riesgo')}
+    ${sc('Alistamiento operativo', a.al, a.al >= 80 ? 'listo' : a.al >= 60 ? 'ajustes' : 'inversión')}
+    ${sc('Atractivo comercial', a.at, tagAt)}
+    ${sc('Información completa', a.datos, a.datos >= 80 ? 'suficiente' : 'faltan datos')}
+  </div>
+
+  <div class="card">
+    <h3>Ficha rápida</h3>
+    <div class="facts">
+      ${fact('Habitaciones', a.hab, `${a.habAA} con A/A`)}
+      ${fact('Baños', a.banos)}
+      ${fact('Huéspedes', a.hues, `${a.plazas} plazas en cama`)}
+      ${fact('Camas', a.camas, n(d.colchon_extra) ? `+${n(d.colchon_extra)} colchón` : '')}
+      ${fact('Área', d.area_construida ? n(d.area_construida) + ' m²' : '—', d.area_lote ? `lote ${n(d.area_lote).toLocaleString('es-CO')} m²` : '')}
+      ${fact('Estrato', d.estrato || '—')}
+      ${fact('Antigüedad', d.antiguedad || '—')}
+      ${fact('Estado', d.estado || '—')}
+      ${fact('Amoblado', d.amoblado || '—')}
+      ${fact('Playa', d.distancia_playa || '—')}
+      ${d.piso !== '' && d.piso != null ? fact('Piso', d.piso, d.ascensor === 'Sí' ? 'con ascensor' : d.ascensor === 'No' ? 'sin ascensor' : '') : ''}
+      ${fact('Posicionamiento', a.seg, 'estimado')}
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h3>Accionables <span class="n">${a.acciones.length} · ${a.altas} prioridad alta</span></h3>
+      <ul class="actions">
+        ${a.acciones.length ? a.acciones.map(x => `<li><span class="pill ${x.prio.toLowerCase()}">${x.prio}</span><span class="cat">${esc(x.cat)}</span><p>${esc(x.txt)}</p></li>`).join('') : '<li class="done">Sin accionables pendientes. Listo para pricing.</li>'}
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Fortalezas</h3>
+        <div class="chips">${a.fortalezas.length ? a.fortalezas.map(f => `<span class="chip">${esc(f)}</span>`).join('') : '<span class="chip neg">Sin diferenciales destacados</span>'}</div>
+      </div>
+      <div class="card pricing">
+        <h3>Insumos para pricing</h3>
+        <div class="rows">
+          ${fact('Tarifa actual', money(d.tarifa_noche), d.tarifa_alta ? `alta ${money(d.tarifa_alta)}` : '')}
+          ${fact('Ocupación', d.ocupacion || '—')}
+          ${fact('Ingreso actual', money(d.ingreso_actual), '/mes')}
+          ${a.base ? fact('Ingreso estimado', money(a.base.est), 'tarifa × ocupación') : ''}
+          ${n(d.canon_arriendo) ? fact('Canon arriendo', money(d.canon_arriendo), '/mes') : ''}
+          ${a.enPlat ? fact('Calificación', d.calificacion || '—', `${d.num_resenas || 0} reseñas`) : ''}
+        </div>
+        <div class="brief-h"><b>Brief para comparables</b><button class="btn" type="button" id="copyBrief">Copiar</button></div>
+        <div class="brief" id="briefTxt">${esc(a.brief)}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Información completa del registro</h3>
+    ${SECTIONS.map(([t, fields]) => {
+      const rows = fields.map(([k, l, f]) => [l, fmtVal(d, k, f)]).filter(([, v]) => v !== '');
+      return rows.length ? `<details class="sec"><summary>${t} <span class="pill">${rows.length}</span></summary><dl class="kv">${rows.map(([l, v]) => `<dt>${esc(l)}</dt><dd>${v}</dd>`).join('')}</dl></details>` : '';
+    }).join('')}
+  </div>`;
+}
+
+const SECTIONS = [
+  ['Propietario', [['tipo_persona', 'Tipo'], ['nombre', 'Nombre'], ['razon_social', 'Razón social'], ['nit', 'NIT'], ['tipo_doc', 'Documento'], ['num_doc', 'Número'], ['celular', 'Celular', 'tel'], ['correo', 'Correo'], ['ciudad_residencia', 'Ciudad de residencia'], ['rol', 'Relación'], ['canal', 'Canal']]],
+  ['Ubicación', [['direccion', 'Dirección'], ['barrio', 'Barrio'], ['conjunto', 'Edificio / conjunto'], ['maps_link', 'Google Maps', 'url'], ['estrato', 'Estrato'], ['piso', 'Piso'], ['ascensor', 'Ascensor'], ['vista', 'Vista'], ['distancia_playa', 'Distancia a playa'], ['via_acceso', 'Vía de acceso'], ['cercanos', 'Cerca (≤5 min)'], ['cercanos_otro', 'Otros cercanos']]],
+  ['Espacios', [['area_construida', 'Área construida (m²)'], ['area_lote', 'Área lote (m²)'], ['obs_area', 'Obs. áreas'], ['hab_aa', 'Hab. con A/A'], ['hab_sin_aa', 'Hab. sin A/A'], ['closet_todas', 'Todas con clóset'], ['hab_closet', 'Hab. con clóset'], ['closet_obs', 'Obs. clósets'], ['banos', 'Baños'], ['medios_banos', 'Medios baños'], ['huespedes_max', 'Huéspedes máx.'], ['parqueaderos', 'Parqueaderos'], ['parqueadero_tipo', 'Tipo parqueadero'], ['obs_distribucion', 'Obs. distribución'], ['cama_king', 'King'], ['cama_queen', 'Queen'], ['cama_doble', 'Doble'], ['cama_sencilla', 'Sencilla'], ['camarote', 'Camarote'], ['sofa_cama', 'Sofá cama'], ['colchon_extra', 'Colchón extra'], ['obs_camas', 'Obs. camas'], ['amoblado', 'Amoblado'], ['obs_amoblado', 'Obs. amoblado']]],
+  ['Dotación y estado', [['equipamiento', 'Equipamiento'], ['equipamiento_otro', 'Otro equipamiento'], ['wifi_mbps', 'Internet (Mbps)'], ['amenidades', 'Amenidades'], ['amenidades_otro', 'Otras amenidades'], ['lenceria', 'Lencería'], ['juegos_sabanas', 'Juegos de sábanas'], ['juegos_toallas', 'Juegos de toallas'], ['estado', 'Estado general'], ['pendientes', 'Pendientes'], ['antiguedad', 'Antigüedad']]],
+  ['Operación y normas', [['ph', 'Propiedad horizontal'], ['estadias_cortas', 'Edificio acepta estadías cortas'], ['reglamento_permite', 'Reglamento permite'], ['admin_contacto', 'Administración'], ['acceso_tipo', 'Acceso'], ['mascotas', 'Mascotas'], ['eventos', 'Eventos'], ['fumar', 'Fumar'], ['contacto1_nombre', 'Apoyo 1'], ['contacto1_rol', 'Rol apoyo 1'], ['contacto1_tel', 'Tel. apoyo 1', 'tel'], ['contacto2_nombre', 'Apoyo 2'], ['contacto2_rol', 'Rol apoyo 2'], ['contacto2_tel', 'Tel. apoyo 2', 'tel']]],
+  ['Situación comercial', [['uso_actual', 'Uso actual'], ['rnt', 'RNT'], ['rnt_num', 'N.º RNT'], ['link_anuncio', 'Anuncio', 'url'], ['tarifa_noche', 'Tarifa promedio', 'money'], ['tarifa_alta', 'Tarifa temporada alta', 'money'], ['ocupacion', 'Ocupación'], ['ingreso_actual', 'Ingreso mensual', 'money'], ['calificacion', 'Calificación'], ['num_resenas', 'Reseñas'], ['canon_arriendo', 'Canon arriendo', 'money']]]
+];
+function fmtVal(d, k, f) {
+  const v = d[k];
+  if (v === '' || v == null || (Array.isArray(v) && !v.length)) return '';
+  if (/^(cama_|camarote|sofa_cama|colchon_extra|medios_banos|parqueaderos|hab_sin_aa)/.test(k) && n(v) === 0) return '';
+  if (f === 'money') return esc(money(v));
+  if (f === 'url') { const u = safeUrl(v); return u ? `<a href="${esc(u)}" target="_blank" rel="noopener">Abrir enlace</a>` : esc(v); }
+  if (f === 'tel') return esc((k === 'celular' ? (d.indicativo || '') + ' ' : '') + v);
+  return esc(Array.isArray(v) ? v.join(', ') : v);
+}
+
+/* ================= EVENTOS ================= */
+$('#list').addEventListener('click', e => { const b = e.target.closest('.item'); if (b) { SEL = b.dataset.id; render(); $('#detail').scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+$('#propSel').addEventListener('change', e => { SEL = e.target.value; render(); });
+['#q', '#fCiudad', '#fViab', '#fLead'].forEach(s => $(s).addEventListener('input', render));
+$('#refresh').addEventListener('click', () => refresh());
+document.addEventListener('click', async e => {
+  if (e.target.id !== 'copyBrief') return;
+  const t = $('#briefTxt').innerText;
+  try { await navigator.clipboard.writeText(t); toast('Brief copiado'); }
+  catch (err) { const r = document.createRange(); r.selectNodeContents($('#briefTxt')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Selecciona y copia con Ctrl+C'); }
+});
+function askKey(msg) { $('#keyModal').hidden = false; $('#keyErr').textContent = msg || ''; setTimeout(() => $('#keyIn').focus(), 50); }
+$('#keyForm').addEventListener('submit', e => { e.preventDefault(); const k = $('#keyIn').value.trim(); if (!k) return; setKey(k); $('#keyModal').hidden = true; refresh(); });
+let tt; function toast(m) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); } t.textContent = m; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 2800); }
+
+setInterval(() => { if (!document.hidden) refresh(true); }, CONFIG.REFRESH_MIN * 60000);
+setInterval(updStamp, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && LAST && Date.now() - LAST > CONFIG.REFRESH_MIN * 60000) refresh(true); });
+
+/* ================= DEMO (?demo) ================= */
+const DEMO_ROWS = [
+  { id: 'BLM-261001-A1B2', fecha: '2026-10-01T14:20:00Z', estado_lead: 'Nuevo', tipo_persona: 'Persona natural', nombre: 'Laura Gómez Ríos', indicativo: '+57', celular: '3001112233', correo: 'laura@correo.co', rol: 'Soy el propietario', canal: 'Instagram', tipo_inmueble: 'Apartamento', ciudad: 'Barranquilla', barrio: 'Villa Santos', direccion: 'Calle 100 # 52-20, apto 804', conjunto: 'Torres del Bosque', maps_link: 'https://maps.app.goo.gl/demo', estrato: '5', piso: 8, ascensor: 'Sí', vista: ['Ciudad'], distancia_playa: 'Más de 10 km', via_acceso: 'Pavimentada', cercanos: ['Centros comerciales', 'Restaurantes y bares', 'Supermercados', 'Clínicas u hospitales'], area_construida: 78, hab_aa: 2, hab_sin_aa: 0, closet_todas: 'Sí', banos: 2, medios_banos: 0, huespedes_max: 4, parqueaderos: 1, parqueadero_tipo: 'Privado cubierto', cama_queen: 1, cama_sencilla: 2, amoblado: 'Totalmente', equipamiento: ['WiFi', 'Aire acondicionado', 'Smart TV', 'Cocina equipada', 'Nevera', 'Estufa', 'Microondas', 'Lavadora', 'Plancha', 'Secador de pelo', 'Cerradura inteligente'], wifi_mbps: 300, amenidades: ['Piscina compartida', 'Gimnasio', 'Terraza o balcón', 'Portería 24h'], lenceria: 'Completa para todos los huéspedes', juegos_sabanas: 9, juegos_toallas: 12, estado: 'Excelente', antiguedad: '1 a 5 años', ph: 'Sí', estadias_cortas: 'Sí', reglamento_permite: 'Sí', admin_contacto: 'Adm. Torres 3005556677', acceso_tipo: 'Cerradura inteligente o con código', mascotas: 'Con condiciones', eventos: 'No', fumar: 'No', uso_actual: ['Se renta por plataformas'], rnt: 'Sí', rnt_num: '123456', link_anuncio: 'https://airbnb.com/rooms/demo', tarifa_noche: 260000, tarifa_alta: 340000, ocupacion: '50% a 70%', ingreso_actual: 4300000, calificacion: 4.86, num_resenas: 37 },
+  { id: 'BLM-260930-C3D4', fecha: '2026-09-30T18:05:00Z', estado_lead: 'Contactado', tipo_persona: 'Persona natural', nombre: 'Eugenio Martínez', indicativo: '+57', celular: '3014445566', correo: '', rol: 'Soy el propietario', canal: 'Recomendación', tipo_inmueble: 'Cabaña', ciudad: 'Tubará', barrio: 'Urbanización El Santuario', direccion: 'Lote 14', maps_link: '', estrato: 'Rural / no aplica', vista: ['Mar', 'Naturaleza o montaña'], distancia_playa: '2 a 10 km', via_acceso: 'Destapada difícil (requiere 4x4 en lluvia)', cercanos: [], area_construida: 220, area_lote: 2000, hab_aa: 2, hab_sin_aa: 2, closet_todas: 'No', hab_closet: 2, closet_obs: 'Las del segundo piso tienen solo perchero', banos: 3, medios_banos: 0, huespedes_max: 18, parqueaderos: 0, cama_queen: 3, cama_doble: 2, cama_sencilla: 2, camarote: 1, amoblado: 'Parcialmente', obs_amoblado: 'Falta comedor exterior', equipamiento: ['WiFi', 'Ventiladores', 'Nevera', 'Estufa', 'Microondas', 'Horno'], amenidades: ['Piscina privada', 'Jacuzzi', 'BBQ', 'Kiosko o hamacas'], lenceria: 'Parcial', juegos_sabanas: 6, juegos_toallas: 10, estado: 'Requiere mantenimiento', pendientes: 'Bomba de la piscina con fallas, pintura exterior', antiguedad: '10 a 20 años', ph: 'No', acceso_tipo: 'Entrega presencial', mascotas: 'Sí', eventos: 'Con condiciones', fumar: 'Solo en zonas exteriores', contacto1_nombre: 'Guillermo', contacto1_rol: 'Mayordomo / capataz', contacto1_tel: '3106758906', uso_actual: ['Uso propio o familiar', 'Renta directa por días'], rnt: 'No sé qué es', tarifa_noche: 900000, ocupacion: 'Menos de 30%', ingreso_actual: 3500000 },
+  { id: 'BLM-260929-E5F6', fecha: '2026-09-29T15:40:00Z', estado_lead: 'Nuevo', tipo_persona: 'Persona natural', nombre: 'Cecilia Pardo', indicativo: '+57', celular: '3157778899', correo: 'cecilia@correo.co', rol: 'Soy el propietario', canal: 'Recomendación', tipo_inmueble: 'Apartamento', ciudad: 'Barranquilla', barrio: 'Alto Prado', direccion: 'Carrera 56 # 79-10, apto 302', conjunto: 'Edificio Mirador', maps_link: 'https://maps.app.goo.gl/demo2', estrato: '5', piso: 3, ascensor: 'Sí', vista: ['Ciudad'], distancia_playa: 'Más de 10 km', via_acceso: 'Pavimentada', cercanos: ['Restaurantes y bares', 'Supermercados', 'Universidades'], area_construida: 64, hab_aa: 2, hab_sin_aa: 0, closet_todas: 'Sí', banos: 2, huespedes_max: 4, parqueaderos: 1, cama_doble: 1, cama_sencilla: 2, amoblado: 'Totalmente', equipamiento: ['WiFi', 'Aire acondicionado', 'Smart TV', 'Nevera', 'Estufa', 'Lavadora'], wifi_mbps: 30, amenidades: ['Piscina compartida'], lenceria: 'No tiene', estado: 'Bueno', antiguedad: 'Más de 20 años', ph: 'Sí', estadias_cortas: 'No', reglamento_permite: 'No sé', acceso_tipo: 'Portería o recepción', mascotas: 'No', eventos: 'No', fumar: 'No', uso_actual: ['Arriendo tradicional'], rnt: 'No', canon_arriendo: 2300000 }
+];
+
+/* ================= INICIO ================= */
+if (DEMO || getKey()) refresh(); else askKey();
+</script>
+</body>
+</html>
